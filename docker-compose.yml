@@ -19,6 +19,7 @@ services:
 
   zou-api:
     restart: always
+    image: postwork-io/zou:latest
     build:
       context: .
       dockerfile: zou.dockerfile
@@ -40,6 +41,7 @@ services:
 
   zou-events:
     restart: always
+    image: postwork-io/zou:latest
     build:
       context: .
       dockerfile: zou.dockerfile
@@ -59,6 +61,7 @@ services:
 
   zou-worker:
     restart: always
+    image: postwork-io/zou:latest
     build:
       context: .
       dockerfile: zou.dockerfile
