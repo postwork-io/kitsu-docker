@@ -25,7 +25,7 @@ WORKDIR /opt/zou
 RUN python3.12 -m venvzouenv &&\
     . zouenv/bin/activate &&\
     zouenv/bin/python -m pip install --upgrade pip &&\
-    zouenv/bin/python -m pip install zou &&
+    zouenv/bin/python -m pip install zou
 
 RUN mkdir /opt/zou/previews &&\
     mkdir /opt/zou/tmp &&\
