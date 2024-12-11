@@ -7,7 +7,7 @@ RUN apt-get update
 RUN apt-get install -y xmlsec1 ffmpeg postgresql-client dos2unix
 
 # python 3.12
-run apt-get install -y software-properties-common &&\
+RUN apt-get install software-properties-common &&\
     add-apt-repository ppa:deadsnakes/ppa -y &&\
     apt-get update &&\
     apt-get install python3.12 python3.12-venv python3.12-dev
@@ -25,7 +25,7 @@ WORKDIR /opt/zou
 RUN python3.12 -m venvzouenv &&\
     . zouenv/bin/activate &&\
     zouenv/bin/python -m pip install --upgrade pip &&\
-    zouenv/bin/python -m pip install zou &&\
+    zouenv/bin/python -m pip install zou &&
 
 RUN mkdir /opt/zou/previews &&\
     mkdir /opt/zou/tmp &&\
