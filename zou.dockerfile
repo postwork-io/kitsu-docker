@@ -22,7 +22,7 @@ RUN useradd --home /opt/zou zou &&\
 WORKDIR /opt/zou
 
 # install zou and its dependencies:
-RUN python3.12 -m venvzouenv &&\
+RUN python3.12 -m venv zouenv &&\
     . zouenv/bin/activate &&\
     zouenv/bin/python -m pip install --upgrade pip &&\
     zouenv/bin/python -m pip install zou
