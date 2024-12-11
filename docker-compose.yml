@@ -1,0 +1,110 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=zoudb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    expose:
+      - 5432
+  redis:
+    image: redis
+    restart: always
+    expose:
+      - 6379
+
+  zou-api:
+    restart: always
+    build:
+      context: .
+      dockerfile: zou.dockerfile
+    env_file:
+      - .env
+    environment:
+      - ENABLE_JOB_QUEUE=True
+      - PATH=/opt/zou/zouenv/bin:/usr/bin
+    volumes:
+      - zou_previews:/opt/zou/previews
+      - tmp:/opt/zou/tmp
+      - logs:/opt/zou/logs
+    expose:
+      - 5000
+    command: api
+    depends_on:
+      - db
+      - redis
+
+  zou-events:
+    restart: always
+    build:
+      context: .
+      dockerfile: zou.dockerfile
+    env_file:
+      - .env
+    environment:
+      - PATH=/opt/zou/zouenv/bin
+    volumes:
+      - zou_previews:/opt/zou/previews
+      - tmp:/opt/zou/tmp
+      - logs:/opt/zou/logs
+    expose:
+      - 5001
+    command: events
+    depends_on:
+      - zou-api
+
+  zou-worker:
+    restart: always
+    build:
+      context: .
+      dockerfile: zou.dockerfile
+    env_file:
+      - .env
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+    volumes:
+      - zou_previews:/opt/zou/previews
+      - tmp:/opt/zou/tmp
+      - logs:/opt/zou/logs
+    command: worker
+    depends_on:
+      - zou-api
+      - redis
+  kitsu:
+    restart: always
+    build:
+      context: .
+      dockerfile: kitsu.dockerfile
+    ports:
+      - 7000:80
+      - 7443:443
+volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${DOCKER_VOLUME_ROOT}/db_data'
+  zou_previews:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${DOCKER_VOLUME_ROOT}/zou_previews'
+  tmp:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${DOCKER_VOLUME_ROOT}/tmp'
+  logs:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${DOCKER_VOLUME_ROOT}/logs'
