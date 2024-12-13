@@ -1,11 +1,10 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 
 RUN apt-get update
-RUN apt-get install -y nginx git dos2unix
+RUN apt-get install -y nginx git
 
 ADD ./zou /etc/nginx/sites-available
-RUN dos2unix /etc/nginx/sites-available/zou
 RUN ln -s /etc/nginx/sites-available/zou /etc/nginx/sites-enabled
 
 RUN rm /etc/nginx/sites-enabled/default
