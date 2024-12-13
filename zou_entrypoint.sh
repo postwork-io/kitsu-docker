@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -f /opt/zou/tmp/initialized ]; then
+if [ ! -f "/opt/zou/tmp/initialized" ]; then
     /bin/bash touch /opt/zou/tmp/initialized
     /bin/bash -c "./first_run.sh ${ADMIN_USERNAME} ${ADMIN_PASSWORD}"
 
