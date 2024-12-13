@@ -50,9 +50,9 @@ services:
       db:
         condition: service_healthy
       redis:
+        condition: service_started
       meilisearch:
-
-
+        condition: service_started
   zou-events:
     restart: always
     image: postwork-io/zou:latest
