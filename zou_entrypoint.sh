@@ -6,7 +6,7 @@
 if [ "$1" == "api" ]; then
 
     if [ ! -f "/opt/zou/tmp/initialized" ]; then
-        /bin/bash -c touch /opt/zou/tmp/initialized
+        /bin/bash -c "touch /opt/zou/tmp/initialized"
         /bin/bash -c "./first_run.sh ${ADMIN_USERNAME} ${ADMIN_PASSWORD}"
     fi
     echo "Starting Zou API server"
