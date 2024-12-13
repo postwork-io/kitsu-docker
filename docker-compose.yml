@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: zou.dockerfile
     env_file:
-      - stack.env
+      - .env
     environment:
       - ENABLE_JOB_QUEUE=True
       - PATH=/opt/zou/zouenv/bin:/usr/bin
@@ -45,7 +45,7 @@ services:
       context: .
       dockerfile: zou.dockerfile
     env_file:
-      - stack.env
+      - .env
     environment:
       - PATH=/opt/zou/zouenv/bin
     volumes:
@@ -65,7 +65,7 @@ services:
       context: .
       dockerfile: zou.dockerfile
     env_file:
-      - stack.env
+      - .env
     environment:
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
