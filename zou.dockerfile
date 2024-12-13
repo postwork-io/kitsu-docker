@@ -4,7 +4,7 @@ FROM ubuntu:20.04
 RUN apt-get update
 
 # third party software
-RUN apt-get install -y xmlsec1 ffmpeg postgresql-client dos2unix
+RUN apt-get install -y xmlsec1 ffmpeg postgresql-client
 
 # python 3.12
 RUN apt-get install -y software-properties-common &&\
@@ -36,11 +36,9 @@ ADD ./gunicorn.conf.py /etc/zou
 ADD ./gunicorn-events.conf.py /etc/zou
 
 ADD ./zou_entrypoint.sh .
-RUN dos2unix ./zou_entrypoint.sh
 RUN chmod u+x ./zou_entrypoint.sh
 
 ADD ./first_run.sh .
-RUN dos2unix ./first_run.sh
 RUN chmod u+x ./first_run.sh
 
 ENV LC_ALL=C.UTF-8
