@@ -24,6 +24,8 @@ services:
   meilisearch:
     image: getmeili/meilisearch:v1.11
     restart: always
+    environment:
+      - MEILI_MASTER_KEY=${INDEXER_KEY}
     expose:
       - 7700
   zou-api:
