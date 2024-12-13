@@ -15,7 +15,11 @@ services:
     restart: always
     expose:
       - 6379
-
+  meilisearch:
+    image: getmeili/meilisearch:v1.11
+    restart: always
+    expose:
+      - 7700
   zou-api:
     restart: always
     image: postwork-io/zou:latest
